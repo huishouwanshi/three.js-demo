@@ -46,9 +46,21 @@ class Page extends React.Component {
                 console.error('An error happened.');
             }
         );
-        scene.background = texture
+        //scene.background = texture
+        var groundTexture=texture
+        groundTexture.wrapS=groundTexture.wrapT=THREE.RepeatWrapping;
+        groundTexture.repeat.set(25,25);
+        groundTexture.anisotropy = 16;
+        var groundMaterial=new THREE.MeshLambertMaterial({map:groundTexture});
 
+        var groundGeometry=new THREE.PlaneGeometry(20000,20000);
 
+        var mesh=new THREE.Mesh( groundGeometry, groundMaterial);
+        mesh.rotation.x=-Math.PI/2;
+        mesh.position.y =-250;
+        mesh.receiveShadow=true;
+
+        scene.add(mesh);
 
 
         // 背景色
