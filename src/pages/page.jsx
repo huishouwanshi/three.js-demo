@@ -11,7 +11,6 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
-
 class Page extends React.Component {
     constructor(props) {
         super(props)
@@ -32,7 +31,7 @@ class Page extends React.Component {
         // 加载一个资源
         var texture = Textrueloader.load(
             // 资源URL
-            'draw.jpg',
+            'yinhe.jpg',
             // onLoad回调
             function (texture) {
                 // in this example we create the material when the texture is loaded
@@ -48,8 +47,12 @@ class Page extends React.Component {
             }
         );
         scene.background = texture
+
+
+
+
         // 背景色
-        // scene.background = new THREE.Color(0x999999);
+        //scene.background = new THREE.Color(0x999999);
         //半球灯
         const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         //平行光
@@ -68,40 +71,17 @@ class Page extends React.Component {
         const grid = new THREE.GridHelper(50, 50, 0xffffff, 0x555555);
         //scene.add(grid);
 
-        const renderer = new THREE.WebGLRenderer({
+        var renderer = new THREE.WebGLRenderer({
             antialias: true,
             precision: 'highp',
-            //    alpha:true
+            //alpha: true
         });
 
         renderer.setPixelRatio(this.mount.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         this.mount.appendChild(renderer.domElement);
 
-        const gemBackMaterial = new THREE.MeshPhysicalMaterial({
-            map: null,
-            color: 0x0000ff,
-            metalness: 1,
-            roughness: 0,
-            opacity: 0.5,
-            side: THREE.BackSide,
-            transparent: true,
-            envMapIntensity: 5,
-            premultipliedAlpha: true
-            // TODO: Add custom blend mode that modulates background color by this materials color.
-        });
-        const gemFrontMaterial = new THREE.MeshPhysicalMaterial({
-            map: null,
-            color: 0x0000ff,
-            metalness: 0,
-            roughness: 0,
-            opacity: 0.25,
-            side: THREE.FrontSide,
-            transparent: true,
-            envMapIntensity: 10,
-            premultipliedAlpha: true
-        });
-
+        //渲染obj模型
         // const loader = new OBJLoader()
         // loader.setPath('/static/obj/')
         // loader.load('emerald.obj', (obj) => {
@@ -126,11 +106,13 @@ class Page extends React.Component {
         //     scene.add(obj)
         // })
 
-        // const loader = new GLTFLoader().setPath('/static/obj/');
+        //渲染gltf模型
+        // const loader = window.a.loader = new GLTFLoader().setPath('/static/obj/');
         // const dracoLoader = new DRACOLoader();
-        // dracoLoader.setDecoderPath('/public/draco/');
+        // // dracoLoader.setDecoderPath('/public/draco/');
         // loader.setDRACOLoader(dracoLoader);
         // loader.load('model.gltf', (obj) => {
+        //     alert()
         //   //  this.changeFbx(obj.scene, 0x3f67ed)
         //     console.log(obj, 'obj');
         //     //obj.position.set(0, 0, 0)
@@ -138,110 +120,7 @@ class Page extends React.Component {
         //     obj.transparent = false;
         //     obj.alphaTest = 0.9;
         //     scene.add(obj.scene)
-
-        // }
-        // )
-
-
-        const loader = new FBXLoader()
-        loader.setPath('/static/obj/')
-
-        // loader.load('wan.fbx', (obj) => {
-        //   obj.traverse(function (child) {
-        //         if (child instanceof THREE.Mesh) {
-        //             child.material =new THREE.MeshPhongMaterial({
-        //                 color:0x0000ff,
-        //                 specular:0x4488ee,
-        //                 shininess:12
-        //             });//材质对象
-        //         }
-        //     })
-        //     console.log(obj, 'obj');
-        //     obj.position.set(0, -7, 0)
-        //     obj.scale.set(0.1, 0.1, 0.1)
-        //     scene.add(obj)
         // })
-        loader.load('1products.fbx', (obj) => {
-            this.changeFbx(obj, 0x0000ff)
-            console.log(obj, 'obj');
-            obj.position.set(-3, 1, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('2transaction.fbx', (obj) => {
-            this.changeFbx(obj, 0xff00ff)
-            console.log(obj, 'obj');
-            obj.position.set(0, 1, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('3crosscenter.fbx', (obj) => {
-            this.changeFbx(obj, 0x00FFFF)
-            console.log(obj, 'obj');
-            obj.position.set(3, 1, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('4workflow.fbx', (obj) => {
-            this.changeFbx(obj, 0x00FF7F)
-            console.log(obj, 'obj');
-            obj.position.set(6, 1, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('5ruleengine.fbx', (obj) => {
-            this.changeFbx(obj, 0xDC143C)
-            console.log(obj, 'obj');
-            obj.position.set(-3, 4, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('6quota.fbx', (obj) => {
-            this.changeFbx(obj, 0x8A2BE2)
-            console.log(obj, 'obj');
-            obj.position.set(0, 4, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('7inline.fbx', (obj) => {
-            this.changeFbx(obj, 0xFFFF00)
-            console.log(obj, 'obj');
-            obj.position.set(3, 4, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        loader.load('8outreach.fbx', (obj) => {
-            this.changeFbx(obj, 0x00FF00)
-            console.log(obj, 'obj');
-            obj.position.set(6, 4, 0)
-            obj.scale.set(0.5, 0.5, 0.5)
-            scene.add(obj)
-        })
-        //加入线段
-        const material = new THREE.LineBasicMaterial({
-            color: 0xffffff
-        });
-
-        const points = [];
-        points.push(new THREE.Vector3(-1.5, 1, 0));
-        points.push(new THREE.Vector3(-0.5, 1, 0));
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const line = new THREE.Line(geometry, material);
-        scene.add(line);
-
-        const points1 = [];
-        points1.push(new THREE.Vector3(1, 1, 0));
-        points1.push(new THREE.Vector3(2, 1, 0));
-        const geometry1 = new THREE.BufferGeometry().setFromPoints(points1);
-        const line1 = new THREE.Line(geometry1, material);
-        scene.add(line1);
-
-
-
-
-
-
-
 
 
 
@@ -257,15 +136,19 @@ class Page extends React.Component {
 
         this.mount.addEventListener('resize', this.nWindowResize);
         this.animate()
+        //创建图形
         //  this.createCube()
         // this.createCubes(6, 'box')
         // this.createCubes(6, 'ss')
         // this.createServices()
+
+        //添加线段
+        this.addLine()
+        this.addServices()
     }
 
     //动态场景
     onWindowResize = () => {
-
         this.camera.aspect = this.mount.innerWidth / this.mount.innerHeight;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(this.mount.innerWidth, this.mount.innerHeight);
@@ -273,9 +156,8 @@ class Page extends React.Component {
         this.cylinder.renderOrder = 1;
         this.controls.handleResize();
 
-
     }
-
+    //修改模型
     changeFbx = (obj, color) => {
         obj.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
@@ -297,6 +179,49 @@ class Page extends React.Component {
         })
     }
 
+    //添加线段
+    addLine = () => {
+        //加入线段
+        const material = new THREE.LineBasicMaterial({
+            color: 0xffffff
+        });
+
+        const points = [];
+        points.push(new THREE.Vector3(-1.5, 1, 0));
+        points.push(new THREE.Vector3(-0.5, 1, 0));
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(geometry, material);
+        this.scene.add(line);
+
+        const points1 = [];
+        points1.push(new THREE.Vector3(1, 1, 0));
+        points1.push(new THREE.Vector3(2, 1, 0));
+        const geometry1 = new THREE.BufferGeometry().setFromPoints(points1);
+        const line1 = new THREE.Line(geometry1, material);
+        this.scene.add(line1);
+
+        const points2 = [];
+        points2.push(new THREE.Vector3(-2.5, 1.5, 0));
+        points2.push(new THREE.Vector3(0.5, 3, 0));
+        const geometry2 = new THREE.BufferGeometry().setFromPoints(points2);
+        const line2 = new THREE.Line(geometry2, material);
+        this.scene.add(line2);
+
+        const points3 = [];
+        points3.push(new THREE.Vector3(0.5, 1.5, 0));
+        points3.push(new THREE.Vector3(-2.5, 3, 0));
+        const geometry3 = new THREE.BufferGeometry().setFromPoints(points3);
+        const line3 = new THREE.Line(geometry3, material);
+        this.scene.add(line3);
+
+        const points4 = [];
+        points4.push(new THREE.Vector3(3, 1.5, 0));
+        points4.push(new THREE.Vector3(3, 3, 0));
+        const geometry4 = new THREE.BufferGeometry().setFromPoints(points4);
+        const line4 = new THREE.Line(geometry4, material);
+        this.scene.add(line4);
+
+    }
 
     //动画
     animate = () => {
@@ -369,6 +294,71 @@ class Page extends React.Component {
         })
     }
 
+    //添加固定服务节点
+    addServices = () => {
+
+        const loader = new FBXLoader()
+        loader.setPath('/static/obj/')
+
+        loader.load('1products.fbx', (obj) => {
+            this.changeFbx(obj, 0x0000ff)
+            console.log(obj, 'obj');
+            obj.position.set(-3, 1, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('2transaction.fbx', (obj) => {
+            this.changeFbx(obj, 0xff00ff)
+            console.log(obj, 'obj');
+            obj.position.set(0, 1, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('3crosscenter.fbx', (obj) => {
+            this.changeFbx(obj, 0x00FFFF)
+            console.log(obj, 'obj');
+            obj.position.set(3, 1, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('4workflow.fbx', (obj) => {
+            this.changeFbx(obj, 0x00FF7F)
+            console.log(obj, 'obj');
+            obj.position.set(6, 1, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('5ruleengine.fbx', (obj) => {
+            this.changeFbx(obj, 0xDC143C)
+            console.log(obj, 'obj');
+            obj.position.set(-3, 4, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('6quota.fbx', (obj) => {
+            this.changeFbx(obj, 0x8A2BE2)
+            console.log(obj, 'obj');
+            obj.position.set(0, 4, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('7inline.fbx', (obj) => {
+            this.changeFbx(obj, 0xFFFF00)
+            console.log(obj, 'obj');
+            obj.position.set(3, 4, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+        loader.load('8outreach.fbx', (obj) => {
+            this.changeFbx(obj, 0x00FF00)
+            console.log(obj, 'obj');
+            obj.position.set(6, 4, 0)
+            obj.scale.set(0.5, 0.5, 0.5)
+            this.scene.add(obj)
+        })
+
+
+    }
     render() {
         return (
             <div>
